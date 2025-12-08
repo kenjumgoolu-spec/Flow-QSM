@@ -1,4 +1,4 @@
-# 🚀 Flow-QSM: Physics-Guided Conditional Flow Matching for Quantitative Susceptibility Mapping  
+# 🚀 Flow-QSM: Bridging Learned Priors and Physical Models for Quantitative Susceptibility Mapping
 **Coming Soon**
 
 Flow-QSM is a **physics-guided conditional flow-matching framework** for fast, accurate, and robust Quantitative Susceptibility Mapping (QSM). This repository will include the complete implementation of our method, covering training, inference, model checkpoints, and reproducible experiment settings.
