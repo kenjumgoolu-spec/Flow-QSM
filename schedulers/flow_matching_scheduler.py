@@ -77,7 +77,7 @@ class FlowMatchScheduler:
 
         sigma_t = extract(self.sigmas, t, x_start.shape).to(x_start.dtype)
         out = (1.0 - sigma_t) * x_start + sigma_t * noise
-        weighting=compute_loss_weighting_for_sd3(weighting_scheme="sigma_sqrt",sigmas=sigma_t)
+        weighting=compute_loss_weighting_for_sd3(weighting_scheme="cosmap",sigmas=sigma_t)
         return out,weighting
 
     def pred_x0_from_noised_img(self, noised_img, model_output, t):
