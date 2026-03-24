@@ -1,0 +1,20 @@
+{
+    "data": {
+      "data_file_path": [
+        "your_eval_data/cosmos_1.nii.gz",
+        "your_eval_data/cosmos_2.nii.gz",
+        "your_eval_data/cosmos_3.nii.gz",
+        "..."
+        
+      ],
+      "patch_size": [64, 64, 64],
+      "sample_overlap": 32,
+      "normalize": false,
+      "blank_threshold": 0.80,
+      "max_attempts": 100,
+      "transform_params": {
+        "flip_prob": 0.5,
+        "rotation_prob": 0.5
+      }
+    }
+  }

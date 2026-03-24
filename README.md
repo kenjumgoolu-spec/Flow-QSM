@@ -1,33 +1,118 @@
 # 🚀 Flow-QSM: Bridging Learned Priors and Physical Models for Quantitative Susceptibility Mapping
-**Coming Soon**
 
-Flow-QSM is a **physics-guided conditional flow-matching framework** for fast, accurate, and robust Quantitative Susceptibility Mapping (QSM). This repository will include the complete implementation of our method, covering training, inference, model checkpoints, and reproducible experiment settings.
+## 🔓 Overview
 
-## 🔍 Overview  
-Flow-QSM bridges learned generative priors with MRI physics to solve the ill-posed dipole inversion problem.
+**Flow-QSM** is a physics-guided conditional **flow-matching framework** for fast, accurate, and robust Quantitative Susceptibility Mapping (QSM).
 
-Key components include:
+It bridges **learned generative priors** with **MRI physical models** to solve the ill-posed dipole inversion problem.
 
-- **Unconditional flow matching** for learning a generative prior of susceptibility maps  
-- **Physics-guided reverse sampling** conditioned on the dipole forward model  
-- **Customized architecture** featuring:  
-  - Patch-wise positional encoding for globally consistent reconstruction  
-  - Dual-branch skip-backbone modulation for high-fidelity detail recovery
+---
 
-## 🧪 Experimental Highlights  
-- Superior reconstruction accuracy and artifact suppression  
-- Robustness across *in vivo*, clinical, and out-of-domain datasets  
-- High computational efficiency during inference
+## ✨ Key Features
 
-## 📦 Upcoming Release  
-The initial public version will include:
+* 🧠 **Flow Matching Prior**
+  Learns a continuous generative prior over susceptibility maps
 
-- ✔️ Training & inference pipelines  
-- ✔️ Pretrained checkpoints  
-- ✔️ Data preprocessing tools  
-- ✔️ Visualization & evaluation scripts  
-- ✔️ Full documentation
+* 🧲 **Physics-Guided Sampling**
+  Incorporates dipole forward model during reverse inference
 
-## ⏳ Stay Tuned  
-We are preparing the final release.  
-**Star ⭐ the repo** to get notified when the code becomes available!
+* 🧩 **Customized Architecture**
+
+  * Patch-wise positional encoding (global consistency)
+  * Dual-branch skip-backbone modulation (detail preservation)
+
+* ⚡ **Efficient Inference**
+  Fast reconstruction with high fidelity
+
+---
+
+## 📁 Project Structure
+
+```bash
+Flow-QSM/
+│── train.py                  # Training entry
+│── inference.py              # Inference entry
+│── pipeline.py               # Sampling pipeline
+│
+├── modules/                   # Network architectures
+├── schedulers/              # Flow matching scheduler
+├── config/                     # model config 
+├── scripts/                  # Training / inference scripts
+│
+├── output_dir/               # Checkpoints & logs
+└── utils/                    # Utility functions
+```
+
+---
+
+## ⚙️ Environment Setup
+
+### 🔧 Requirements
+
+* Python >= 3.10
+* CUDA >= 11.8
+* PyTorch == 2.3.1
+* DeepSpeed == 0.16.4
+* HuggingFace Accelerate
+
+---
+
+### 📦 Installation
+
+```bash
+conda create -n flowqsm python=3.10
+conda activate flowqsm
+
+# Install PyTorch (adjust CUDA version if needed)
+pip install torch==2.3.1
+
+# Core dependencies
+pip install deepspeed==0.16.4
+pip install accelerate
+
+# Other dependencies
+pip install -r requirements.txt
+```
+
+---
+
+## 🚀 Training
+
+
+### 🔵 Multi-GPU (Recommended)
+
+```bash
+./scripts/train.sh
+```
+
+---
+
+
+
+## 🔍 Inference
+
+
+### 🔵 Multi-GPU Inference
+
+```bash
+.scripts/inference.sh
+```
+
+---
+
+
+
+## 📊 Outputs
+
+* Reconstructed QSM maps (`.nii.gz`)
+* Intermediate sampling results (optional)
+* Logs & evaluation metrics
+
+---
+
+
+
+
+
+
+

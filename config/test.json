@@ -1,0 +1,13 @@
+
+{
+    "inference_tasks": [
+      
+      {
+        "input_file": "your_test_data/phase.nii.gz",
+        "mask_file": "your_test_data/mask.nii.gz",
+        "B0_dir": [0.0, 0.0, 1.0],
+        "pix_dim": [1.0, 1.0, 1.0],
+        "type": "flow"
+      }
+    ]
+  }

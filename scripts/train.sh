@@ -1,0 +1,21 @@
+accelerate launch  train.py \
+  --model_config config/model.json \
+  --train_data_config config/train_data.json \
+  --eval_data_config config/eval_data.json \
+  --scheduler_config config/flow_scheduler.json \
+  --dataloader_num_workers 4 \
+  --mixed_precision bf16 \
+  --output_dir output_dir/flow_scheduler/ \
+  --train_batch_size 4 \
+  --max_train_steps 10000000 \
+  --checkpointing_steps 100 \
+  --gradient_accumulation_steps 2 \
+  --learning_rate 1e-4 \
+  --optimizer adamw \
+  --adam_beta1 0.9 \
+  --adam_beta2 0.95 \
+  --max_grad_norm 1.0 \
+  --logging_dir logs \
+  --report_to wandb \
+  --validation_epochs 1\
+  --prediction_type flow\ 

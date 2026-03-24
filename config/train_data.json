@@ -1,0 +1,22 @@
+{
+    "data": {
+      "data_file_path": [
+        "your_train_data/cosmos_1.nii.gz",
+        "your_train_data/cosmos_2.nii.gz",
+        "your_train_data/cosmos_3.nii.gz",
+        "..."
+      ],
+      "mode":"random_fixed_count",
+      "stride": [16, 16, 16],
+      "patch_size": [64, 64, 64],
+      "sample_overlap": 32,
+      "normalize": true,
+      "blank_threshold": 0.80,
+      "max_attempts": 100,
+      "transform_params": {
+        "flip_prob": 0.5,
+        "rotation_prob": 0.5
+      }
+      
+    }
+  }
