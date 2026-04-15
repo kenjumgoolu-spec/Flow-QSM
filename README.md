@@ -111,8 +111,23 @@ pip install -r requirements.txt
 ---
 
 
+## 📦 Pretrained Weights
+
+You can download the pretrained model weights from Baidu Netdisk:
+
+- **File:** `mp_rank_00_model_states.pt`
+- **Link:** https://pan.baidu.com/s/1SKrezLBM3WQue9-mKNtiQw
+- **Extraction Code:** `u7ua`
+
+**Installation:**
+After downloading, place the weight file into your checkpoint directory:
+```bash
+./checkpoints/mp_rank_00_model_states.pt
+```
 
 
+## 📬 Contact
 
+If you have any questions or would like to collaborate, feel free to contact:
 
-
+📧 qinhaoming@stu.xmu.edu.cn

@@ -1,7 +1,9 @@
 import torch
 import math
 import numpy as np
-
+import matplotlib.pyplot as plt
+import numpy as np
+import os 
 def extract(a, t, x_shape):
     batch_size = t.shape[0]
     a = a.to(t.device)
@@ -74,15 +76,14 @@ class FlowMatchScheduler:
         """
         if noise is None:
             noise = torch.randn_like(x_start, device=x_start.device)
-
-        sigma_t = extract(self.sigmas, t, x_start.shape).to(x_start.dtype)
+        sigma_t = extract(self.sigmas, 999-t, x_start.shape).to(x_start.dtype)
         out = (1.0 - sigma_t) * x_start + sigma_t * noise
         weighting=compute_loss_weighting_for_sd3(weighting_scheme="cosmap",sigmas=sigma_t)
         return out,weighting
 
     def pred_x0_from_noised_img(self, noised_img, model_output, t):
 
-        sigma_t = extract(self.sigmas, t, noised_img.shape)
+        sigma_t = extract(self.sigmas, 999-t, noised_img.shape)
         x0_pred = noised_img - sigma_t * model_output
         return x0_pred
 
@@ -105,9 +106,9 @@ class FlowMatchScheduler:
 
         t_tensor = torch.tensor([cur_t] * sample.shape[0], dtype=torch.long, device=sample.device)
         prev_t_tensor = torch.tensor([prev_t] * sample.shape[0], dtype=torch.long, device=sample.device)
-        sigma_cur = extract(self.sigmas, t_tensor, sample.shape)
-        sigma_prev = extract(self.sigmas, prev_t_tensor, sample.shape)
-        dt = sigma_prev - sigma_cur
+        sigma_cur = extract(self.sigmas, 999-t_tensor, sample.shape)
+        sigma_prev = extract(self.sigmas, 999-prev_t_tensor, sample.shape)
+        dt = (sigma_prev - sigma_cur)
 
         if type == "flow":
             v_pred = model_output
@@ -121,5 +122,4 @@ class FlowMatchScheduler:
             gamma = torch.sqrt(torch.tensor(3e7)) * sigma_cur / norm
         
         mean = sample + dt * v_pred - gamma * posterior_evaluation
-        
         return mean

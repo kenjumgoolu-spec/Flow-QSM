@@ -1,11 +1,11 @@
 export CUDA_VISIBLE_DEVICES=0,2,3
-MODEL_CHECKPOINT="your_ckpt_after_train"
+MODEL_CHECKPOINT="checkpoints/mp_rank_00_model_states.pt"
 MODEL_CONFIG="./config/model.json"
 SCHEDULER_CONFIG="./config/flow_scheduler.json"
 
 
 NUM_INFERENCE_STEPS=8
-NOISE_STEP=200
+NOISE_STEP=50
 WINDOW_SIZE="64 64 64"
 STRIDE="32 32 32"
 B0_DIR="0.0 0.0 1.0"
@@ -23,7 +23,7 @@ echo "Detected $NUM_GPUS GPUs"
 if [ $NUM_GPUS -ge 4 ]; then
     echo "Using true 4-GPU parallel inference"
     python inference.py \
-        --config-file ./test.json \
+        --config-file ./config/test.json \
         --model_checkpoint "$MODEL_CHECKPOINT" \
         --model_config "$MODEL_CONFIG" \
         --scheduler_config "$SCHEDULER_CONFIG" \

@@ -173,7 +173,7 @@ class QsmRecPipeline:
     def _prepare_model_input(self, image, sample, add_noise_step, window_size, stride, device):
         if sample is None and image is None:
             raise ValueError("sample and image can not be None at same time")
-
+        # print("image range",image.max(), image.min())
         if image is not None:
             _sample,_ = self.scheduler.q_sample(x_start=image, noise=None, t=add_noise_step)
             _sample = _sample.squeeze()
@@ -190,11 +190,11 @@ class QsmRecPipeline:
             x_0_hat = self.scheduler.pred_x0_from_noised_img(
                 t=t_tensor, noised_img=x_cur, model_output=model_output
             ).detach().clone()
+        
         elif type == "x_0":
             x_0_hat = model_output.detach().clone()
         else:
             raise ValueError("type must be 'x_0' or 'epsilon'")
-
         x_0_hat.requires_grad_(True)
         inverse = inverse_operator(x_0_hat, B0_dir, pix_dim)
         difference = inverse - measurement
@@ -227,7 +227,7 @@ class QsmRecPipeline:
             for i in range(1, num_inference_steps + 1):
                 cur_t = ts[i - 1] - 1
                 prev_t = ts[i] - 1
-                t = ts[num_inference_steps - i]
+                t = ts[i]
                 output_patches = []
                 t_tensor = torch.tensor([cur_t] * local_phase_image.shape[0], dtype=torch.long).to(device)
                 patches, positions, position_emb, _sample = self._prepare_model_input(
@@ -247,8 +247,7 @@ class QsmRecPipeline:
 
                         input_tensor = patch_tensor.unsqueeze(0).unsqueeze(0)
                         emb = torch.from_numpy(np.array(emb)).to(device).float().unsqueeze(0)
-
-                        timesteps = t.expand(input_tensor.shape[0]).long() * 1000
+                        timesteps = t.expand(input_tensor.shape[0]).long()
                         output = self.unet(x=input_tensor, timesteps=timesteps, position_labels=emb)
 
                         output_patches.append(output.squeeze().cpu().numpy())
@@ -289,4 +288,4 @@ class QsmRecPipeline:
                 cur_image = _unpad_image(cur_image, padims)
                 step_results.append(cur_image)
         step_results = np.stack(step_results, axis=-1)
-        return step_results / 10, cur_image / 10
+        return step_results/10, cur_image/10

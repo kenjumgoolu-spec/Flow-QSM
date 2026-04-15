@@ -616,10 +616,12 @@ def main(args):
                 timesteps = torch.randint(low=0, high=1000, size=(batch_size,), device=model_input.device).long()
                 position_embedding = position_embedding.to(accelerator.device)
                 snr_scale=noise.max()/model_input.max()
-                print(snr_scale)
+               
                 noised_model_input,weighting = noise_scheduler.q_sample(
                     x_start=model_input, noise=noise, t=timesteps
                 )
+                
+                
                 model_pred = model(
                     x=noised_model_input,
                     timesteps=timesteps,

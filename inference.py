@@ -84,7 +84,7 @@ def load_nifti_to_tensor(file_path: str, device: torch.device, subject_id: str) 
         tensor_data = torch.from_numpy(nii_data / (7 * 42.57)) 
     else:
         tensor_data = torch.from_numpy(nii_data)      
-    return tensor_data.to(device)
+    return 10*tensor_data.to(device)
 
 
 def initialize_pipeline(args, rank):
